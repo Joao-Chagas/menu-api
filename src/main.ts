@@ -17,6 +17,7 @@ function setupSwagger(app: INestApplication): void {
 async function init() {
   const port = process.env.PORT || 4000;
   const app = await NestFactory.create(AppModule);
+
   setupSwagger(app);
 
   await app.listen(port);
