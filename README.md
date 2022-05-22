@@ -1,9 +1,12 @@
-## Installation
+## Menu API
+This API was created to manage food menu.
+
+### Installation
 ```
 npm install
 ```
 
-## Running the app
+### Running the app
 
 Development
 ```
@@ -20,7 +23,7 @@ Production mode
 npm run start:prod
 ```
 
-## Important Routes
+### Important Routes
 
 Swagger (Local)
 ```
