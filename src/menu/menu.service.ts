@@ -26,7 +26,7 @@ export class MenuService {
     return this.database.menu.findMany({
       where: {
         name: {
-          startsWith: name,
+          contains: name,
         },
       },
     });

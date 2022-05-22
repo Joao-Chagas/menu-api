@@ -1,5 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+} from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { UpperCasePipe } from 'src/pipes/upper-case';
 import { MenuRequest } from './dto/request/menu';
 import { MenuResponse } from './dto/response/menu';
 import { MenuService } from './menu.service';
@@ -16,6 +26,7 @@ export class MenuController {
   @ApiBody({
     type: () => MenuRequest,
   })
+  @UsePipes(new UpperCasePipe())
   @Post('create')
   async create(@Body() menu: MenuRequest) {
     return this.menuService.create(menu);
@@ -23,11 +34,26 @@ export class MenuController {
 
   @ApiOkResponse({
     description: 'This route finds the item from menu by name',
+    type: () => MenuResponse,
   })
   @ApiParam({
     name: 'name',
     example: 'hamburger artesanal',
   })
+  @Put('update/:id')
+  async update(@Param('id') id: number, @Body() data: MenuRequest) {
+    return this.menuService.update(id, data);
+  }
+
+  @ApiOkResponse({
+    description: 'This route finds the item from menu by name',
+    type: () => MenuResponse,
+  })
+  @ApiParam({
+    name: 'name',
+    example: 'hamburger artesanal',
+  })
+  @UsePipes(new UpperCasePipe())
   @Get(':name')
   async findByName(@Param('name') name: string) {
     return this.menuService.findByName(name);
